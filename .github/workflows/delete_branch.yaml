@@ -2,12 +2,12 @@ name: Branch Deleted
 on: delete
 
 env:
-  SNOWSQL_PWD: ${{ secrets.SNOWFLAKE_PASSWORD }}
-  SNOWSQL_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
-  SNOWSQL_USER: ${{ secrets.SNOWFLAKE_USERNAME }}
-  SNOWSQL_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
-  SNOWSQL_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
-  SNOWSQL_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+  SNOWSQL_PWD: ${{ secrets.SNOWSQL_PWD }}
+  SNOWSQL_ACCOUNT: ${{ secrets.SNOWSQL_ACCOUNT }}
+  SNOWSQL_USER: ${{ secrets.SNOWSQL_USER }}
+  SNOWSQL_DATABASE: ${{ secrets.SNOWSQL_DATABASE }}
+  SNOWSQL_ROLE: ${{ secrets.SNOWSQL_ROLE }}
+  SNOWSQL_WAREHOUSE: ${{ secrets.SNOWSQL_WAREHOUSE }}
 
 jobs:
   delete:

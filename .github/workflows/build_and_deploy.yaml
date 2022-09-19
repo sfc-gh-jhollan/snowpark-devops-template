@@ -15,13 +15,13 @@ on:
   workflow_dispatch:
 
 env:
-  SNOWSQL_PWD: ${{ secrets.SNOWFLAKE_PWD }}
-  SNOWSQL_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
-  SNOWSQL_USER: ${{ secrets.SNOWFLAKE_USER }}
-  SNOWSQL_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
+  SNOWSQL_PWD: ${{ secrets.SNOWSQL_PWD }}
+  SNOWSQL_ACCOUNT: ${{ secrets.SNOWSQL_ACCOUNT }}
+  SNOWSQL_USER: ${{ secrets.SNOWSQL_USER }}
+  SNOWSQL_DATABASE: ${{ secrets.SNOWSQL_DATABASE }}
   SNOWSQL_SCHEMA: ${{ github.ref_name }}
-  SNOWSQL_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
-  SNOWSQL_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+  SNOWSQL_ROLE: ${{ secrets.SNOWSQL_ROLE }}
+  SNOWSQL_WAREHOUSE: ${{ secrets.SNOWSQL_WAREHOUSE }}
 
 jobs:
   build:
