@@ -15,9 +15,9 @@ on:
   workflow_dispatch:
 
 env:
-  SNOWSQL_PWD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+  SNOWSQL_PWD: ${{ secrets.SNOWFLAKE_PWD }}
   SNOWSQL_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
-  SNOWSQL_USER: ${{ secrets.SNOWFLAKE_USERNAME }}
+  SNOWSQL_USER: ${{ secrets.SNOWFLAKE_USER }}
   SNOWSQL_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
   SNOWSQL_SCHEMA: ${{ github.ref_name }}
   SNOWSQL_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
