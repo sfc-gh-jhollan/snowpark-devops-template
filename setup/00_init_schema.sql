@@ -10,5 +10,5 @@ create or replace procedure my_procedure()
     language python
     runtime_version = '3.8'
     PACKAGES = ('snowflake-snowpark-python', 'scikit-learn', 'pandas')
-    handler = 'procedure.process_data.run'
+    handler = 'procedure.process.run'
     imports = ('@deploy/app.zip');
