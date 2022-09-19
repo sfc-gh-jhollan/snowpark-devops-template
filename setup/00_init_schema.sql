@@ -1,7 +1,7 @@
 -- First create database using the Knoema Economical Data Atlas
 -- Go to Marketplace to get database
 
-CREATE VIEW IF NOT EXISTS BEANIPA ("Table", Table_Name, Table_Description, Table_Full_Name, Table_Unit, Indicator, Indicator_Name, Indicator_Description, Indicator_Full_Name, Units, Scale, Frequency, Data, Value) 
+CREATE VIEW IF NOT EXISTS BEANIPA ("Table", Table_Name, Table_Description, Table_Full_Name, Table_Unit, Indicator, Indicator_Name, Indicator_Description, Indicator_Full_Name, Units, Scale, Frequency, Date, Value) 
 as
 SELECT * FROM KNOEMA_ECONOMY_DATA_ATLAS.ECONOMY.BEANIPA;
 
