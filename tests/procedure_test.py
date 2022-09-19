@@ -1,6 +1,6 @@
 import pytest
 from snowflake.snowpark import Session
-from snowflake.snowpark.types import LongType, DateType, StringType, StructType, StructField, DoubleType
+from snowflake.snowpark.types import LongType, DateType, StringType, StructType, StructField, DoubleType, IntegerType
 from utils import get_session
 get_session.session()
 from procedure import process
@@ -22,9 +22,9 @@ def test_filter(session: Session):
     )
     actual_df = process.filter_personal_consumption_expenditures(source_df)
     expected_data = [
-        ("T20304", "Price Indexes For Personal Consumption Expenditures By Major Type Of Product", None, "Table 2.3.4. Price Indexes For Personal Consumption Expenditures By Major Type Of Product (A) (Q)", "Index, 2012=100", "DPCERG-1", "Personal consumption expenditures (PCE)", None, None, "Index, 2012=100", 1, "A", "2021-01-01", 115.53)     
+        (2021, 115.53)     
     ]
     expected_df = session.create_dataframe(expected_data,
-        schema=schema
+        schema=StructType([StructField('Year', IntegerType(), nullable=True), StructField('PCE', DoubleType(), nullable=True)])
     )
     assert (actual_df.collect() == expected_df.collect())

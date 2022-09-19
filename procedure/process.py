@@ -3,7 +3,7 @@
 
 from snowflake.snowpark import Session, DataFrame
 from snowflake.snowpark.types import FloatType, IntegerType
-from snowflake.snowpark.functions import col
+from snowflake.snowpark.functions import col, year
 from sklearn.linear_model import LinearRegression
 
 OUTPUTS = []
@@ -22,7 +22,8 @@ def filter_personal_consumption_expenditures(input_df: DataFrame) -> DataFrame:
         .filter(col('Indicator_Name') == 'Personal consumption expenditures (PCE)')
         .filter(col('Frequency') == 'A')
         .filter(col('Date') >= '1972-01-01'))
-    return df_pce
+    df_pce_year = df_pce.select(year(col('Date')).alias('Year'), col('Value').alias('PCE') )
+    return df_pce_year
 
 def train_linear_regression_model(input_df: DataFrame) -> LinearRegression:
     pd_df_pce_year = input_df.to_pandas()
