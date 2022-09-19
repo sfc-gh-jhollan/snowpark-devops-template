@@ -3,7 +3,7 @@
   "assertions": [
     {
       "name": "Prediction returns positive int",
-      "value": "SELECT predict_pce_udf(2021) WHERE predict_pce_udf(2021) < 0"
+      "value": "SELECT predict_pce_udf(2023) WHERE predict_pce_udf(2023) < 0"
     }
   ]
 }
