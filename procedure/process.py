@@ -27,7 +27,7 @@ def filter_personal_consumption_expenditures(input_df: DataFrame) -> DataFrame:
 
 def train_linear_regression_model(input_df: DataFrame) -> LinearRegression:
     pd_df_pce_year = input_df.to_pandas()
-    x = pd_df_pce_year["Year"].to_numpy().reshape(-1,1)
+    x = pd_df_pce_year["YEAR"].to_numpy().reshape(-1,1)
     y = pd_df_pce_year["PCE"].to_numpy()
 
     model = LinearRegression().fit(x, y)

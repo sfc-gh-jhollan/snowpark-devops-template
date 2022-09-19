@@ -1,6 +1,7 @@
 import pytest
 from snowflake.snowpark import Session
 from snowflake.snowpark.types import LongType, DateType, StringType, StructType, StructField, DoubleType, IntegerType
+import numpy
 from utils import get_session
 get_session.session()
 from procedure import process
@@ -28,3 +29,16 @@ def test_filter(session: Session):
         schema=StructType([StructField('Year', IntegerType(), nullable=True), StructField('PCE', DoubleType(), nullable=True)])
     )
     assert (actual_df.collect() == expected_df.collect())
+
+def test_linear_regression(session: Session):
+    source_data = [
+        (2017, 106.051),
+        (2018, 108.318),
+        (2019, 109.922),
+        (2020, 111.225)     
+    ]
+    source_df = session.create_dataframe(source_data,
+        schema=StructType([StructField('Year', IntegerType(), nullable=True), StructField('PCE', DoubleType(), nullable=True)])
+    )
+    actual_model = process.train_linear_regression_model(source_df)
+    assert (actual_model.predict([[2021]])[0] == pytest.approx(113.1605, 0.01))
