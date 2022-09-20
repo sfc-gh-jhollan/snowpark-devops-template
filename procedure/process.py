@@ -40,7 +40,7 @@ def train_linear_regression_model(input_pd: pd.DataFrame) -> LinearRegression:
     return model
 
 def register_udf(model, session):
-    def predict_pce(ps: pd.Series) -> pd.Series[float]:
+    def predict_pce(ps: pd.Series) -> pd.Series:
         return ps.transform(lambda x: model.predict([[x]])[0].round(2).astype(float))
     session.udf.register(predict_pce,
                         return_type=PandasSeriesType(FloatType()),
