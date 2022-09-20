@@ -5,13 +5,14 @@ from snowflake.snowpark import Session, DataFrame
 from snowflake.snowpark.types import FloatType, IntegerType
 from snowflake.snowpark.functions import col, year
 from sklearn.linear_model import LinearRegression
+import pandas as pd
 
 OUTPUTS = []
 
 def run(session: Session) -> str:
     pce_df = session.table('BEANIPA')
     filtered_df = filter_personal_consumption_expenditures(pce_df)
-    pce_pred = train_linear_regression_model(filtered_df)
+    pce_pred = train_linear_regression_model(filtered_df.to_pandas())  # type: ignore
     register_udf(pce_pred, session)
     return str(OUTPUTS)
 
@@ -25,17 +26,16 @@ def filter_personal_consumption_expenditures(input_df: DataFrame) -> DataFrame:
     df_pce_year = df_pce.select(year(col('Date')).alias('Year'), col('Value').alias('PCE') )
     return df_pce_year
 
-def train_linear_regression_model(input_df: DataFrame) -> LinearRegression:
-    pd_df_pce_year = input_df.to_pandas()
-    x = pd_df_pce_year["YEAR"].to_numpy().reshape(-1,1)
-    y = pd_df_pce_year["PCE"].to_numpy()
+def train_linear_regression_model(input_pd: pd.DataFrame) -> LinearRegression:
+    x = input_pd["YEAR"].to_numpy().reshape(-1,1)
+    y = input_pd["PCE"].to_numpy()
 
     model = LinearRegression().fit(x, y)
 
     # test model for 2021
     predictYear = 2021
     pce_pred = model.predict([[predictYear]])
-    OUTPUTS.append(pd_df_pce_year.tail())
+    OUTPUTS.append(input_pd.tail())
     OUTPUTS.append('Prediction for '+str(predictYear)+': '+ str(round(pce_pred[0],2)))
     return model
 
