@@ -32,8 +32,8 @@ def train_linear_regression_model(input_pd: pd.DataFrame) -> LinearRegression:
 
     model = LinearRegression().fit(x, y)
 
-    # test model for 2021
-    predictYear = 2021
+    # test model for 2023
+    predictYear = 2023
     pce_pred = model.predict([[predictYear]])
     OUTPUTS.append(input_pd.tail())
     OUTPUTS.append('Prediction for '+str(predictYear)+': '+ str(round(pce_pred[0],2)))
