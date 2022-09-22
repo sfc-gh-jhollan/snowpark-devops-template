@@ -52,7 +52,7 @@ def test_save_model(session: Session, mocker):
     source_df = session.create_dataframe(source_data,
         schema=StructType([StructField('Year', IntegerType(), nullable=True), StructField('PCE', DoubleType(), nullable=True)])
     )
-    ## mock model.predict([[x]]) to return x with pytest-mock
+    ## mock model.predict([[x]])
     mocker.patch('sklearn.linear_model.LinearRegression.predict', return_value=pd.Series(1.123))
     actual_df = process.generate_new_table_with_predicted(source_df, LinearRegression(), session, 2)
     expected_data = [
