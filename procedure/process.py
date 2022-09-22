@@ -14,7 +14,7 @@ def run(session: Session) -> str:
     filtered_df = filter_personal_consumption_expenditures(pce_df)
     pce_pred = train_linear_regression_model(filtered_df.to_pandas())  # type: ignore
     register_udf(pce_pred, session)
-    forecast_df = generate_new_table_with_predicted(filtered_df, pce_pred)
+    forecast_df = generate_new_table_with_predicted(filtered_df, pce_pred, session)
     forecast_df.write.save_as_table('PCE_PREDICT', mode='overwrite')
     return str(OUTPUTS)
 
@@ -54,7 +54,7 @@ def register_udf(model, session):
                         stage_location="@deploy")
     OUTPUTS.append('UDF registered')
 
-def generate_new_table_with_predicted(input_df: DataFrame, model: LinearRegression) -> DataFrame:
+def generate_new_table_with_predicted(input_df: DataFrame, model: LinearRegression, session: Session) -> DataFrame:
     maxYear: int = input_df.agg(max(col('Year'))).collect()[0][0] # type: ignore
     df = []
     for x in range(0, 5):
