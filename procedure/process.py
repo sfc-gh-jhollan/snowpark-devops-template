@@ -55,7 +55,7 @@ def register_udf(model, session):
     OUTPUTS.append('UDF registered')
 
 def generate_new_table_with_predicted(input_df: DataFrame, model: LinearRegression) -> DataFrame:
-    maxYear: int = input_df.agg(max(col('Year'))).collect()[0].as_dict()[0]
+    maxYear: int = input_df.agg(max(col('Year'))).collect()[0][0] # type: ignore
     df = []
     for x in range(0, 5):
         df.append([maxYear+x, model.predict([[maxYear+x]]).astype(float), 1])
