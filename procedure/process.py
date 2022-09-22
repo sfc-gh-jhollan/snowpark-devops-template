@@ -42,11 +42,11 @@ def train_linear_regression_model(input_pd: pd.DataFrame) -> LinearRegression:
     return model
 
 def register_udf(model, session):
-    def predict_pce(ps: pd.DataFrame) -> pd.Series:
-        return ps[0].transform(lambda x: model.predict([[x]])[0].round(2).astype(float))
+    def predict_pce(ps: pd.Series) -> pd.Series:
+        return ps.transform(lambda x: model.predict([[x]])[0].round(2).astype(float))
     session.udf.register(predict_pce,
                         return_type=PandasSeriesType(FloatType()),
-                        input_type=PandasDataFrameType([IntegerType()]),
+                        input_types=[PandasSeriesType(IntegerType())],
                         packages= ["pandas","scikit-learn"],
                         is_permanent=True, 
                         name="predict_pce_udf", 
