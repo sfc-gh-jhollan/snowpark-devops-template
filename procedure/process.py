@@ -44,7 +44,7 @@ def register_udf(model, session):
         return ps.transform(lambda x: model.predict([[x]])[0].round(2).astype(float))
     session.udf.register(predict_pce,
                         return_type=PandasSeriesType(FloatType()),
-                        input_type=PandasSeriesType(IntegerType()),
+                        input_types=[PandasSeriesType(IntegerType())],
                         packages= ["pandas","scikit-learn"],
                         is_permanent=True, 
                         name="predict_pce_udf", 
